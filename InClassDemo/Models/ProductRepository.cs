@@ -1,10 +1,8 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace InClassDemo.Models
 {
@@ -24,16 +22,16 @@ namespace InClassDemo.Models
 
         public IEnumerable<Product> GetAllProducts()
         {
-            return _conn.Query<Product>("SELECT * FROM PRODUCTS;");
-            //return _conn.GetAll<Product>();
+            //return _conn.Query<Product>("SELECT * FROM PRODUCTS;");
+            return _conn.GetAll<Product>();
         }
         
         public Product GetProductById(int id)
         {
-            var products = _conn.Query<Product>("SELECT * FROM PRODUCTS;");
+            //var products = _conn.Query<Product>("SELECT * FROM PRODUCTS;");
 
-            return products.Where(p => p.ProductId == id).FirstOrDefault();
-            //return _conn.Get<Product>(id);
+            //return products.Where(p => p.ProductId == id).FirstOrDefault();
+            return _conn.Get<Product>(id);
         }
     }
 }

@@ -29,14 +29,18 @@ namespace InClassDemo.Controllers
             return View(product);
         }
 
-        [HttpPost]
+        
         //POST {controller}/{action}
         public IActionResult Create(Product p)
         {
             _repo.CreateProduct(p);
-
             return RedirectToAction("Index");
-            //return View(p);
+            //return View();
+        }
+
+        public IActionResult NewProduct()
+        {
+            return View();
         }
     }
 }
