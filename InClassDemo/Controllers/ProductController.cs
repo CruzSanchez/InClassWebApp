@@ -28,19 +28,45 @@ namespace InClassDemo.Controllers
             var product = _repo.GetProductById(id);
             return View(product);
         }
-
         
-        //POST {controller}/{action}
-        public IActionResult Create(Product p)
-        {
-            _repo.CreateProduct(p);
-            return RedirectToAction("Index");
-            //return View();
-        }
-
-        public IActionResult NewProduct()
-        {
+        //GET {controller}/{action}
+        public IActionResult Create()
+        {           
             return View();
         }
+        
+        [HttpPost]
+        //POST {controller}/{action}      
+        public IActionResult Create(Product p)
+        {
+            if (ModelState.IsValid)
+            {
+                _repo.CreateProduct(p);
+                return RedirectToAction("Index");
+            }
+            return View();
+        }     
+        
+        public IActionResult UpdateProduct(int id)
+        {
+            var product = _repo.GetProductById(id);
+
+            _repo.UpdateProduct(product);
+
+            if (product == null)
+            {
+                return View("ProductNotFound");
+            }                       
+
+            return View(product);
+        }
+
+        public IActionResult UpdateProductToDatabase(Product product)
+        {
+            _repo.UpdateProduct(product);
+
+            return RedirectToAction("ViewProduct", new { id = product.ProductId });
+        }
+
     }
 }

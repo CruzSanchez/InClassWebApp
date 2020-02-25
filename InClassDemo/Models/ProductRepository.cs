@@ -22,16 +22,27 @@ namespace InClassDemo.Models
 
         public IEnumerable<Product> GetAllProducts()
         {
-            //return _conn.Query<Product>("SELECT * FROM PRODUCTS;");
-            return _conn.GetAll<Product>();
+            //return _conn.Query<Product>("SELECT * FROM PRODUCTS;"); Regular Dapper
+
+            return _conn.GetAll<Product>(); // Dapper.Contrib
         }
-        
+
         public Product GetProductById(int id)
         {
-            //var products = _conn.Query<Product>("SELECT * FROM PRODUCTS;");
-
+            //var products = _conn.Query<Product>("SELECT * FROM PRODUCTS;"); // Regular Dapper
             //return products.Where(p => p.ProductId == id).FirstOrDefault();
-            return _conn.Get<Product>(id);
+
+            return _conn.Get<Product>(id); // Dapper.Contrib
         }
+
+        public void UpdateProduct(Product p)
+        {
+            _conn.Update(p);
+        }
+        
+        public void DeleteProduct(Product p)
+        {
+            _conn.Delete(p);
+        }        
     }
 }
